@@ -72,9 +72,12 @@ const client = new MongoClient(mongoURI);
 
 
 
-
+router.get('/', (req, res) => {
+  return res.status(200).json('welcome jhmt api');
+});
 
 // Transaction Routes
+
 
 router.post('/api/sales', async (req, res) => {
   try {

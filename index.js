@@ -40,10 +40,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const productRoutes = require('./routes/productRoutes')
-
+const path = require('path');
 const app = express();
 const port = 5005;
-
 mongoose.connect('mongodb+srv://mandipsth765:9863520755@cluster0.naibexm.mongodb.net/salesdb').then((val) => {
   console.log('Connected to MongoDB')
   app.listen(port, () => {
@@ -53,8 +52,14 @@ mongoose.connect('mongodb+srv://mandipsth765:9863520755@cluster0.naibexm.mongodb
   console.log(err);
 });
 
+const corsOptions = {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+};
+
+app.use(cors(corsOptions));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
 app.use(cors());
-
 app.use(productRoutes);
 

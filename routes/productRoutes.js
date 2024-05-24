@@ -134,12 +134,14 @@ router.get('/api/transactions/total', async (req, res) => {
 
 router.post('/api/expenses', async (req, res) => {
   try {
-    const { product, quantitySold, totalAmount, timestamp } = req.body;
+    const { product, quantitySold, totalAmount, vat, unit, timestamp } = req.body;
 
     const result = await client.db(dbName).collection('expenses').insertOne({
       product,
       quantitySold,
       totalAmount,
+      vat,
+      unit,
       timestamp,
     });
     res.status(201).json({ message: 'Expense created successfully', expenseId: result.insertedId });
